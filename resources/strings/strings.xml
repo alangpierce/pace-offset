@@ -1,0 +1,5 @@
+<strings>
+    <string id="AppName">Pace Offset</string>
+    <string id="TargetPaceMinutesPerMileTitle">Target Pace (Minutes per Mile)</string>
+    <string id="NumberError">Invalid number</string>
+</strings>
