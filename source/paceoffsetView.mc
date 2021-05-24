@@ -15,17 +15,21 @@ class paceoffsetView extends WatchUi.SimpleDataField {
         if (targetPaceMinutesPerMile == null) {
             targetPaceMinutesPerMile = 10.0;
         }
-        label = "" + targetPaceMinutesPerMile.format("%.1f") + "min/mi Pace Offset";
+        label = "" + targetPaceMinutesPerMile.format("%g") + "min/mi Offset";
     }
 
     function compute(info) {
-        if (info.elapsedDistance == null || info.timerTime == null) {
-            return "--";
+        var elapsedDistanceM = 0.0;
+        if (info.elapsedDistance != null) {
+            elapsedDistanceM = info.elapsedDistance;
         }
+        var currentTimeMs = 0.0;
+        if (info.timerTime != null) {
+            currentTimeMs = info.timerTime.toFloat();
+        }
+        
         var targetPaceMsPerM = targetPaceMinutesPerMile * 60 * 1000 / 1609.34;
-        var elapsedDistanceM = info.elapsedDistance;
         var expectedTimeMs = targetPaceMsPerM * elapsedDistanceM;
-        var currentTimeMs = info.timerTime.toFloat();
         var paceOffsetMs = currentTimeMs - expectedTimeMs;
         var paceOffsetSeconds = paceOffsetMs / 1000;
         var paceOffsetDuration = new Time.Duration(paceOffsetSeconds);
