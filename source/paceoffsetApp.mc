@@ -1,9 +1,11 @@
 using Toybox.Application;
 
 class paceoffsetApp extends Application.AppBase {
+    var paceOffset;
 
     function initialize() {
         AppBase.initialize();
+        paceOffset = new paceoffsetView();
     }
 
     // onStart() is called on application start up
@@ -16,6 +18,10 @@ class paceoffsetApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new paceoffsetView() ];
+        return [ paceOffset ];
+    }
+    
+    function onSettingsChanged() {
+        paceOffset.refreshTargetPace();
     }
 }

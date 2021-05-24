@@ -3,28 +3,24 @@ using Toybox.WatchUi;
 using Toybox.Time;
 
 class paceoffsetView extends WatchUi.SimpleDataField {
+    var targetPaceMinutesPerMile;
+
     function initialize() {
         SimpleDataField.initialize();
-        label = "" + getTargetPaceMinutesPerMile().format("%.2f") + "min/mi Pace Offset";
+        refreshTargetPace();
     }
     
-    function getTargetPaceMinutesPerMile() {
-        var result = Application.getApp().getProperty("targetPaceMinutesPerMile");
-        if (result != null) {
-            return result;
+    function refreshTargetPace() {
+        targetPaceMinutesPerMile = Application.Properties.getValue("targetPaceMinutesPerMile");
+        if (targetPaceMinutesPerMile == null) {
+            targetPaceMinutesPerMile = 10.0;
         }
-        return 10.0;
+        label = "" + targetPaceMinutesPerMile.format("%.1f") + "min/mi Pace Offset";
     }
 
     function compute(info) {
         if (info.elapsedDistance == null || info.timerTime == null) {
             return "--";
-        }
-        
-//        var targetPaceMinutesPerMile = 12.0;
-        var targetPaceMinutesPerMile = getTargetPaceMinutesPerMile();
-        if (targetPaceMinutesPerMile == null) {
-            targetPaceMinutesPerMile = 10.0;
         }
         var targetPaceMsPerM = targetPaceMinutesPerMile * 60 * 1000 / 1609.34;
         var elapsedDistanceM = info.elapsedDistance;
