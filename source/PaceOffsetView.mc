@@ -12,6 +12,9 @@ class PaceOffsetView extends WatchUi.SimpleDataField {
     
     function refreshTargetPace() {
         var targetPace = Application.Properties.getValue("targetPace");
+        if (targetPace != null) {
+            targetPace = targetPace.toFloat();
+        }
         if (targetPace == null) {
             targetPace = 10.0;
         }
