@@ -2,8 +2,8 @@ using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.Time;
 
-class paceoffsetView extends WatchUi.SimpleDataField {
-    var targetPaceMinutesPerMile;
+class PaceOffsetView extends WatchUi.SimpleDataField {
+    var targetPaceMsPerM;
 
     function initialize() {
         SimpleDataField.initialize();
@@ -11,11 +11,21 @@ class paceoffsetView extends WatchUi.SimpleDataField {
     }
     
     function refreshTargetPace() {
-        targetPaceMinutesPerMile = Application.Properties.getValue("targetPaceMinutesPerMile");
-        if (targetPaceMinutesPerMile == null) {
-            targetPaceMinutesPerMile = 10.0;
+        var targetPace = Application.Properties.getValue("targetPace");
+        if (targetPace == null) {
+            targetPace = 10.0;
         }
-        label = "" + targetPaceMinutesPerMile.format("%g") + "min/mi Offset";
+        var targetPaceUnits = Application.Properties.getValue("targetPaceUnits");
+        System.println("Pace is " + targetPace + ", Units is " + targetPaceUnits);
+        if (targetPaceUnits == 2) {
+            // Minutes per kilometer
+            targetPaceMsPerM = targetPace * 60 * 1000 / 1000;
+            label = "" + targetPace.format("%g") + "min/km Offset";
+        } else {
+            // Minutes per mile
+            targetPaceMsPerM = targetPace * 60 * 1000 / 1609.34;
+            label = "" + targetPace.format("%g") + "min/mi Offset";
+        }
     }
 
     function compute(info) {
@@ -27,8 +37,6 @@ class paceoffsetView extends WatchUi.SimpleDataField {
         if (info.timerTime != null) {
             currentTimeMs = info.timerTime.toFloat();
         }
-        
-        var targetPaceMsPerM = targetPaceMinutesPerMile * 60 * 1000 / 1609.34;
         var expectedTimeMs = targetPaceMsPerM * elapsedDistanceM;
         var paceOffsetMs = currentTimeMs - expectedTimeMs;
         var paceOffsetSeconds = paceOffsetMs / 1000;

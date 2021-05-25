@@ -1,11 +1,11 @@
 using Toybox.Application;
 
-class paceoffsetApp extends Application.AppBase {
+class PaceOffsetApp extends Application.AppBase {
     var paceOffset;
 
     function initialize() {
         AppBase.initialize();
-        paceOffset = new paceoffsetView();
+        paceOffset = new PaceOffsetView();
     }
 
     function onStart(state) {

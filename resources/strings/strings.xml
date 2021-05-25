@@ -1,4 +1,7 @@
 <strings>
     <string id="AppName">Pace Offset</string>
-    <string id="TargetPaceMinutesPerMileTitle">Target Pace (Minutes per Mile)</string>
+    <string id="TargetPaceTitle">Target Pace</string>
+    <string id="TargetPaceUnitsTitle">Units</string>
+    <string id="MinutesPerMile">Minutes per Mile</string>
+    <string id="MinutesPerKilometer">Minutes per Kilometer</string>
 </strings>
