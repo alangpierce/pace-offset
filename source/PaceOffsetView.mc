@@ -16,13 +16,13 @@ class PaceOffsetView extends WatchUi.SimpleDataField {
             targetPace = 10.0;
         }
         var targetPaceUnits = Application.Properties.getValue("targetPaceUnits");
-        if (targetPaceUnits == 2) {
+        if (targetPaceUnits != null && targetPaceUnits == 2) {
             // Minutes per kilometer
-            targetPaceMsPerM = targetPace * 60 * 1000 / 1000;
+            targetPaceMsPerM = targetPace.toFloat() * 60.0 * 1000.0 / 1000.0;
             label = "" + targetPace.format("%g") + "min/km Offset";
         } else {
             // Minutes per mile
-            targetPaceMsPerM = targetPace * 60 * 1000 / 1609.34;
+            targetPaceMsPerM = targetPace.toFloat() * 60.0 * 1000.0 / 1609.34;
             label = "" + targetPace.format("%g") + "min/mi Offset";
         }
     }
