@@ -16,7 +16,6 @@ class PaceOffsetView extends WatchUi.SimpleDataField {
             targetPace = 10.0;
         }
         var targetPaceUnits = Application.Properties.getValue("targetPaceUnits");
-        System.println("Pace is " + targetPace + ", Units is " + targetPaceUnits);
         if (targetPaceUnits == 2) {
             // Minutes per kilometer
             targetPaceMsPerM = targetPace * 60 * 1000 / 1000;
