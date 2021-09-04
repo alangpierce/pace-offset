@@ -82,8 +82,8 @@ function testShowsZeroBeforeActivityStarts(logger) {
 
 (:test)
 function testInvalidPaceMiles(logger) {
-    // If we can't properly interpret the pace, we should fall back to a 10
-    // minute pace in the current units.
+    // If we can't properly interpret the pace, we should fall back to a
+    // 10min/mi pace.
     var view = makeView("hello", MINUTES_PER_MILE);
     assertEqual(view.label, "10min/mi Offset");
     assertEqual(-30.0, computeRoundedOffset(view, 1 * MILES, 9.5 * MINUTES));
@@ -92,10 +92,10 @@ function testInvalidPaceMiles(logger) {
 
 (:test)
 function testInvalidPaceKilometers(logger) {
-    // If we can't properly interpret the pace, we should fall back to a 10
-    // minute pace in the current units.
+    // If we can't properly interpret the pace, we should fall back to a
+    // 6min/km pace.
     var view = makeView("hello", MINUTES_PER_KM);
-    assertEqual(view.label, "10min/km Offset");
-    assertEqual(-30.0, computeRoundedOffset(view, 1 * KM, 9.5 * MINUTES));
+    assertEqual(view.label, "6min/km Offset");
+    assertEqual(30.0, computeRoundedOffset(view, 1 * KM, 6.5 * MINUTES));
     return true;
 }
